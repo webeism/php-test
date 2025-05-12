@@ -4,11 +4,11 @@ We would like you to create a basic Laravel API called **“Laravel Tech Task De
 
 ## Key criteria:
 1. A task is formed of a name (min 3, max 100 characters) and a description (min 10, max 5000 characters).
-2. Create an endpoint to view all tasks (no user restrictions)
+2. Create an endpoint to view all tasks (no user restrictions).
 3. A secured URL is required to edit or delete a task. Provide the appropriate endpoints to do this when a task is created.
 4. No user accounts/ authentication is required.
 5. Should be a RESTful API with a base of: `/api/tasks`.
-6. Uses a NoSQL database (this is already setup)
+6. Uses a NoSQL database (this is already setup).
 7. Appropriate Unit Tests.
 8. Uses Laravel Best Practices.
 

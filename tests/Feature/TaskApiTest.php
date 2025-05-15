@@ -49,4 +49,25 @@ class TaskApiTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonFragment(['name' => 'Updated']);
     }
+
+    public function test_can_delete_a_task()
+    {
+        // Create the task
+        $task = Task::factory()->create([
+            'edit_token' => 'delete-token'
+        ]);
+
+        // Perform the DELETE request
+        $response = $this->deleteJson("/api/tasks/{$task->id}/delete-token");
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'message' => 'Task deleted'
+            ]);
+
+        // Assert it's no longer in the database
+        $this->assertDatabaseMissing('tasks', [
+            'id' => $task->id,
+        ]);
+    }
 }

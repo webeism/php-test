@@ -42,4 +42,12 @@ class TaskController extends Controller
         $task->update($validated);
         return response()->json($task);
     }
+
+    public function destroy($id, $token)
+    {
+        $task = Task::where('id', $id)->where('edit_token', $token)->firstOrFail();
+        $task->delete();
+
+        return response()->json(['message' => 'Task deleted']);
+    }
 }

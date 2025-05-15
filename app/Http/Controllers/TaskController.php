@@ -29,4 +29,17 @@ class TaskController extends Controller
             'edit_url' => url("/api/tasks/{$task->id}/{$task->edit_token}")
         ], 201);
     }
+
+    public function update($id, $token, Request $request)
+    {
+        $task = Task::where('id', $id)->where('edit_token', $token)->firstOrFail();
+
+        $validated = $request->validate([
+            'name' => 'required|min:3|max:100',
+            'description' => 'required|min:10|max:5000',
+        ]);
+
+        $task->update($validated);
+        return response()->json($task);
+    }
 }

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Task;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaskApiTest extends TestCase
@@ -67,5 +68,16 @@ class TaskApiTest extends TestCase
 
 
         $this->assertSoftDeleted('tasks', ['id' => $task->id]);
+    }
+
+    public function test_requests_are_logged()
+    {
+        Log::shouldReceive('info')
+            ->once()
+            ->with('API Request', \Mockery::on(function ($data) {
+                return isset($data['method'], $data['url'], $data['payload']);
+            }));
+
+        $this->getJson('/api/tasks');
     }
 }

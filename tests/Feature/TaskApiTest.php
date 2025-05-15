@@ -65,9 +65,7 @@ class TaskApiTest extends TestCase
                 'message' => 'Task deleted'
             ]);
 
-        // Assert it's no longer in the database
-        $this->assertDatabaseMissing('tasks', [
-            'id' => $task->id,
-        ]);
+
+        $this->assertSoftDeleted('tasks', ['id' => $task->id]);
     }
 }

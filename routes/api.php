@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/tasks', [TaskController::class, 'store']);
 Route::get('/tasks', [TaskController::class, 'index']);
+Route::put('/{id}/{token}', [TaskController::class, 'update']);

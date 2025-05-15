@@ -32,4 +32,21 @@ class TaskApiTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonCount(2);
     }
+
+    public function test_update_task_with_token()
+    {
+        $task = Task::create([
+            'name' => 'Test',
+            'description' => 'Desc',
+            'edit_token' => '12345-uuid'
+        ]);
+
+        $response = $this->putJson("/api/tasks/{$task->id}/12345-uuid", [
+            'name' => 'Updated',
+            'description' => 'Updated desc'
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonFragment(['name' => 'Updated']);
+    }
 }
